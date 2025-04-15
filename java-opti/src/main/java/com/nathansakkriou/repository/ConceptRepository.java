@@ -1,6 +1,6 @@
-package repository;
+package com.nathansakkriou.repository;
 
-import entities.concept.Concept;
+import com.nathansakkriou.entities.concept.Concept;
 
 import java.util.UUID;
 

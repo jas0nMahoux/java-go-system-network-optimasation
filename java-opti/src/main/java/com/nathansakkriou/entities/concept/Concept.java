@@ -1,4 +1,4 @@
-package entities.concept;
+package com.nathansakkriou.entities.concept;
 
 import java.util.UUID;
 

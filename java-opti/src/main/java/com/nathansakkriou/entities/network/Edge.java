@@ -1,6 +1,6 @@
-package entities.network;
+package com.nathansakkriou.entities.network;
 
-import entities.concept.Concept;
+import com.nathansakkriou.entities.concept.Concept;
 
 import java.util.UUID;
 

@@ -1,0 +1,25 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  compile:
+    desc: Compile les fichiers Java
+    cmds:
+      - mkdir -p out
+      - javac -d out $(find entities repository -name "*.java") Application.java
+    sources:
+      - entities/**/*.java
+      - repository/**/*.java
+      - Application.java
+      - lib/**/*.jar
+
+  run:
+    desc: Exécute l'application Java
+    cmds:
+      - java -cp out Application
+
+  default:
+    cmds:
+      - task: compile
+      - task: run
