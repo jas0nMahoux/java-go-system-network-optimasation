@@ -8,29 +8,27 @@ import com.nathansakkriou.repository.IConceptRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class GetNetworkUseCase {
+public class GetNetworkUseCaseIterative1 {
     private final IConceptRepository conceptRepository;
 
-    public GetNetworkUseCase(IConceptRepository conceptRepository) {
+    public GetNetworkUseCaseIterative1(IConceptRepository conceptRepository) {
         this.conceptRepository = conceptRepository;
     }
 
     public NetworkConcepts execute() {
+        List<Edge> edges = new ArrayList<>();
         List<Concept> allConcept = conceptRepository.findAll();
         Map<String, UUID> mapTitleId = conceptsToMapTitleUuid(allConcept);
-        List<Edge> edges = new ArrayList<>();
-        for (Concept concept : allConcept) {
-            edges.addAll(
-                    findEdges(concept, mapTitleId)
-            );
-        }
-        return null;
+
+        for (Concept concept : allConcept)
+            edges.addAll(findEdges(concept, mapTitleId));
+
+        return new NetworkConcepts(allConcept, edges);
     }
 
     private List<Edge> findEdges(Concept concept, Map<String, UUID> mapTitleId) {
@@ -51,7 +49,7 @@ public class GetNetworkUseCase {
         Matcher matcher = pattern.matcher(input);
 
         while (matcher.find()) {
-            results.add(matcher.group(1)); // groupe 1 = texte entre [[ ]]
+            results.add(matcher.group(1));
         }
 
         return results;
