@@ -7,37 +7,41 @@ import com.nathansakkriou.repository.IConceptRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
- * Version naive
+ * Optimisation de la recherche de lien de concept en utilisant une map
+ * + parrallel sur les streams de la map
  */
-public class GetNetworkUseCaseIterativeV0 {
+public class GetNetworkUseCaseIterative11 {
     private final IConceptRepository conceptRepository;
 
-    public GetNetworkUseCaseIterativeV0(IConceptRepository conceptRepository) {
+    public GetNetworkUseCaseIterative11(IConceptRepository conceptRepository) {
         this.conceptRepository = conceptRepository;
     }
 
     public NetworkConcepts execute() {
         List<Edge> edges = new ArrayList<>();
         List<Concept> allConcept = conceptRepository.findAll();
+        Map<String, UUID> mapTitleId = conceptsToMapTitleUuid(allConcept);
 
         for (Concept concept : allConcept)
-            edges.addAll(findEdges(concept, allConcept));
+            edges.addAll(findEdges(concept, mapTitleId));
 
         return new NetworkConcepts(allConcept, edges);
     }
 
-    private List<Edge> findEdges(Concept concept, List<Concept> allConcept) {
+    private List<Edge> findEdges(Concept concept, Map<String, UUID> mapTitleId) {
         List<String> refs = extractTextBetweenDelimiters(concept.description());
         List<Edge> edges = new ArrayList<>();
         refs.forEach(ref -> {
-            var filterList = allConcept.stream().filter(concept1 -> concept1.id().toString().equals(ref)).toList();
-            if(!filterList.isEmpty()) {
-                edges.add(new Edge(concept.id(), filterList.get(0).id()));
-
+            if (mapTitleId.containsKey(ref)) {
+                UUID conceptId = mapTitleId.get(ref);
+                edges.add(new Edge(concept.id(), conceptId));
             }
         });
         return edges;
@@ -55,5 +59,13 @@ public class GetNetworkUseCaseIterativeV0 {
         }
 
         return results;
+    }
+
+    private Map<String, UUID> conceptsToMapTitleUuid(List<Concept> concepts) {
+        return concepts.stream()
+                .parallel()
+                .collect(
+                Collectors.toMap(Concept::title, Concept::id)
+        );
     }
 }

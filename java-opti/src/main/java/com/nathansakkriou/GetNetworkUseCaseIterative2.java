@@ -7,37 +7,40 @@ import com.nathansakkriou.repository.IConceptRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
- * Version naive
+ * Utilisation de virtual thread pour paralléliser findEdges
  */
-public class GetNetworkUseCaseIterativeV0 {
+public class GetNetworkUseCaseIterativeV2 {
     private final IConceptRepository conceptRepository;
 
-    public GetNetworkUseCaseIterativeV0(IConceptRepository conceptRepository) {
+    public GetNetworkUseCaseIterativeV2(IConceptRepository conceptRepository) {
         this.conceptRepository = conceptRepository;
     }
 
     public NetworkConcepts execute() {
         List<Edge> edges = new ArrayList<>();
         List<Concept> allConcept = conceptRepository.findAll();
+        Map<String, UUID> mapTitleId = conceptsToMapTitleUuid(allConcept);
 
         for (Concept concept : allConcept)
-            edges.addAll(findEdges(concept, allConcept));
+            edges.addAll(findEdges(concept, mapTitleId));
 
         return new NetworkConcepts(allConcept, edges);
     }
 
-    private List<Edge> findEdges(Concept concept, List<Concept> allConcept) {
+    private List<Edge> findEdges(Concept concept, Map<String, UUID> mapTitleId) {
         List<String> refs = extractTextBetweenDelimiters(concept.description());
         List<Edge> edges = new ArrayList<>();
         refs.forEach(ref -> {
-            var filterList = allConcept.stream().filter(concept1 -> concept1.id().toString().equals(ref)).toList();
-            if(!filterList.isEmpty()) {
-                edges.add(new Edge(concept.id(), filterList.get(0).id()));
-
+            if (mapTitleId.containsKey(ref)) {
+                UUID conceptId = mapTitleId.get(ref);
+                edges.add(new Edge(concept.id(), conceptId));
             }
         });
         return edges;
@@ -55,5 +58,12 @@ public class GetNetworkUseCaseIterativeV0 {
         }
 
         return results;
+    }
+
+    private Map<String, UUID> conceptsToMapTitleUuid(List<Concept> concepts) {
+        return concepts.stream()
+                .collect(
+                        Collectors.toMap(Concept::title, Concept::id)
+                );
     }
 }

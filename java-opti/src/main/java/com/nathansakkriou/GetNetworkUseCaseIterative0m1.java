@@ -11,12 +11,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Version naive
+ * Version naive + Parallele sur les streams de recherche
  */
-public class GetNetworkUseCaseIterativeV0 {
+public class GetNetworkUseCaseIterative01 {
     private final IConceptRepository conceptRepository;
 
-    public GetNetworkUseCaseIterativeV0(IConceptRepository conceptRepository) {
+    public GetNetworkUseCaseIterative01(IConceptRepository conceptRepository) {
         this.conceptRepository = conceptRepository;
     }
 
@@ -34,7 +34,10 @@ public class GetNetworkUseCaseIterativeV0 {
         List<String> refs = extractTextBetweenDelimiters(concept.description());
         List<Edge> edges = new ArrayList<>();
         refs.forEach(ref -> {
-            var filterList = allConcept.stream().filter(concept1 -> concept1.id().toString().equals(ref)).toList();
+            var filterList = allConcept.stream()
+                    .parallel()
+                    .filter(concept1 -> concept1.id().toString().equals(ref)).toList();
+
             if(!filterList.isEmpty()) {
                 edges.add(new Edge(concept.id(), filterList.get(0).id()));
 
