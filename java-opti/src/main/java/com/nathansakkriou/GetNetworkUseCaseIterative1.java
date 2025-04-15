@@ -13,6 +13,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * Optimisation de la recherche de lien de concept en utilisant une map
+ */
 public class GetNetworkUseCaseIterative1 {
     private final IConceptRepository conceptRepository;
 
@@ -45,18 +48,21 @@ public class GetNetworkUseCaseIterative1 {
 
     private static List<String> extractTextBetweenDelimiters(String input) {
         List<String> results = new ArrayList<>();
-        Pattern pattern = Pattern.compile("[[(.+?)]]");
+        Pattern pattern = Pattern.compile("\\[\\[(.+?)]]");
         Matcher matcher = pattern.matcher(input);
 
         while (matcher.find()) {
-            results.add(matcher.group(1));
+            if (matcher.groupCount() >= 1) {
+                results.add(matcher.group(1));
+            }
         }
 
         return results;
     }
 
     private Map<String, UUID> conceptsToMapTitleUuid(List<Concept> concepts) {
-        return concepts.stream().collect(
+        return concepts.stream()
+                .collect(
                 Collectors.toMap(Concept::title, Concept::id)
         );
     }

@@ -10,28 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ConceptRepository implements IConceptRepository{
+public class ConceptRepositoryJson implements IConceptRepository{
+    private final List<Concept> concepts = new ArrayList<>();
 
-    public ConceptRepository() {
-    }
+    public ConceptRepositoryJson(String filePath) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<Concept> fileConcept;
+        try {
+            fileConcept = mapper.readValue(new File(filePath), new TypeReference<List<Concept>>() {});
+        } catch (IOException e) {
+            e.printStackTrace();
+            fileConcept = new ArrayList<>();
+        }
 
-    public Concept create(String title, String description) {
-        return new Concept(
-                UUID.randomUUID(),
-                title,
-                description
-        );
+        concepts.addAll(fileConcept);
     }
 
     @Override
     public List<Concept> findAll() {
-        List<Concept> concepts = new ArrayList<>();
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.readValue(new File("./data/30.json"), new TypeReference<List<Concept>>() {});
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
+        return concepts;
     }
 }

@@ -1,12 +1,8 @@
 package com.nathansakkriou;
 
-import com.nathansakkriou.repository.ConceptRepository;
+import com.nathansakkriou.repository.ConceptRepositoryJson;
 import com.nathansakkriou.repository.IConceptRepository;
-import junit.framework.TestCase;
-import junit.framework.TestResult;
-import org.apache.commons.math3.ml.neuralnet.Network;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +11,7 @@ public class GetNetworkUseCaseIterative1Test {
 
     @BeforeEach
     public void setUp() {
-        conceptRepository = new ConceptRepository();
+        conceptRepository = IConceptRepository.createInstanceJson100();
     }
 
     @Test

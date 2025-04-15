@@ -1,0 +1,114 @@
+[
+    {
+        "jmhVersion" : "1.37",
+        "benchmark" : "com.nathansakkriou.benchmark.NetworkBenchmark.benchmarkIterative0",
+        "mode" : "thrpt",
+        "threads" : 1,
+        "forks" : 1,
+        "jvm" : "C:\\Users\\Nathane\\.jdks\\corretto-21.0.5\\bin\\java.exe",
+        "jvmArgs" : [
+            "-javaagent:C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.4\\lib\\idea_rt.jar=49798:C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.4\\bin",
+            "-Dfile.encoding=UTF-8",
+            "-Dsun.stdout.encoding=UTF-8",
+            "-Dsun.stderr.encoding=UTF-8"
+        ],
+        "jdkVersion" : "21.0.5",
+        "vmName" : "OpenJDK 64-Bit Server VM",
+        "vmVersion" : "21.0.5+11-LTS",
+        "warmupIterations" : 5,
+        "warmupTime" : "10 s",
+        "warmupBatchSize" : 1,
+        "measurementIterations" : 5,
+        "measurementTime" : "10 s",
+        "measurementBatchSize" : 1,
+        "primaryMetric" : {
+            "score" : 0.41705565803872596,
+            "scoreError" : 0.15173491228268834,
+            "scoreConfidence" : [
+                0.2653207457560376,
+                0.5687905703214143
+            ],
+            "scorePercentiles" : {
+                "0.0" : 0.3604764789962097,
+                "50.0" : 0.41451667581780677,
+                "90.0" : 0.45889773561610014,
+                "95.0" : 0.45889773561610014,
+                "99.0" : 0.45889773561610014,
+                "99.9" : 0.45889773561610014,
+                "99.99" : 0.45889773561610014,
+                "99.999" : 0.45889773561610014,
+                "99.9999" : 0.45889773561610014,
+                "100.0" : 0.45889773561610014
+            },
+            "scoreUnit" : "ops/ms",
+            "rawData" : [
+                [
+                    0.45889773561610014,
+                    0.4491819818416126,
+                    0.41451667581780677,
+                    0.4022054179219006,
+                    0.3604764789962097
+                ]
+            ]
+        },
+        "secondaryMetrics" : {
+        }
+    },
+    {
+        "jmhVersion" : "1.37",
+        "benchmark" : "com.nathansakkriou.benchmark.NetworkBenchmark.benchmarkIterative1",
+        "mode" : "thrpt",
+        "threads" : 1,
+        "forks" : 1,
+        "jvm" : "C:\\Users\\Nathane\\.jdks\\corretto-21.0.5\\bin\\java.exe",
+        "jvmArgs" : [
+            "-javaagent:C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.4\\lib\\idea_rt.jar=49798:C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.4\\bin",
+            "-Dfile.encoding=UTF-8",
+            "-Dsun.stdout.encoding=UTF-8",
+            "-Dsun.stderr.encoding=UTF-8"
+        ],
+        "jdkVersion" : "21.0.5",
+        "vmName" : "OpenJDK 64-Bit Server VM",
+        "vmVersion" : "21.0.5+11-LTS",
+        "warmupIterations" : 5,
+        "warmupTime" : "10 s",
+        "warmupBatchSize" : 1,
+        "measurementIterations" : 5,
+        "measurementTime" : "10 s",
+        "measurementBatchSize" : 1,
+        "primaryMetric" : {
+            "score" : 0.710542818525927,
+            "scoreError" : 0.1475424817191808,
+            "scoreConfidence" : [
+                0.5630003368067462,
+                0.8580853002451079
+            ],
+            "scorePercentiles" : {
+                "0.0" : 0.6753166404754418,
+                "50.0" : 0.6989717846914008,
+                "90.0" : 0.7662979048730001,
+                "95.0" : 0.7662979048730001,
+                "99.0" : 0.7662979048730001,
+                "99.9" : 0.7662979048730001,
+                "99.99" : 0.7662979048730001,
+                "99.999" : 0.7662979048730001,
+                "99.9999" : 0.7662979048730001,
+                "100.0" : 0.7662979048730001
+            },
+            "scoreUnit" : "ops/ms",
+            "rawData" : [
+                [
+                    0.7662979048730001,
+                    0.7320353638021866,
+                    0.680092398787606,
+                    0.6753166404754418,
+                    0.6989717846914008
+                ]
+            ]
+        },
+        "secondaryMetrics" : {
+        }
+    }
+]
+
+

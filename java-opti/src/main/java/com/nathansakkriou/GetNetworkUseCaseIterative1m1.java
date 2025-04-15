@@ -17,10 +17,10 @@ import java.util.stream.Collectors;
  * Optimisation de la recherche de lien de concept en utilisant une map
  * + parrallel sur les streams de la map
  */
-public class GetNetworkUseCaseIterative11 {
+public class GetNetworkUseCaseIterative1m1 {
     private final IConceptRepository conceptRepository;
 
-    public GetNetworkUseCaseIterative11(IConceptRepository conceptRepository) {
+    public GetNetworkUseCaseIterative1m1(IConceptRepository conceptRepository) {
         this.conceptRepository = conceptRepository;
     }
 

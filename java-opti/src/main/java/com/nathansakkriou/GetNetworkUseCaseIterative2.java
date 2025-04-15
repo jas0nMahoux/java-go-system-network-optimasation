@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -16,10 +17,10 @@ import java.util.stream.Collectors;
 /**
  * Utilisation de virtual thread pour paralléliser findEdges
  */
-public class GetNetworkUseCaseIterativeV2 {
+public class GetNetworkUseCaseIterative2 {
     private final IConceptRepository conceptRepository;
 
-    public GetNetworkUseCaseIterativeV2(IConceptRepository conceptRepository) {
+    public GetNetworkUseCaseIterative2(IConceptRepository conceptRepository) {
         this.conceptRepository = conceptRepository;
     }
 
@@ -28,8 +29,12 @@ public class GetNetworkUseCaseIterativeV2 {
         List<Concept> allConcept = conceptRepository.findAll();
         Map<String, UUID> mapTitleId = conceptsToMapTitleUuid(allConcept);
 
-        for (Concept concept : allConcept)
-            edges.addAll(findEdges(concept, mapTitleId));
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            for (Concept concept : allConcept)
+                executor.execute(() -> {
+                    edges.addAll(findEdges(concept, mapTitleId));
+                });
+        }
 
         return new NetworkConcepts(allConcept, edges);
     }
@@ -62,6 +67,7 @@ public class GetNetworkUseCaseIterativeV2 {
 
     private Map<String, UUID> conceptsToMapTitleUuid(List<Concept> concepts) {
         return concepts.stream()
+                .parallel()
                 .collect(
                         Collectors.toMap(Concept::title, Concept::id)
                 );

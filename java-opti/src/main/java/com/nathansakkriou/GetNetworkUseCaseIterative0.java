@@ -7,16 +7,19 @@ import com.nathansakkriou.repository.IConceptRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Version naive
  */
-public class GetNetworkUseCaseIterativeV0 {
+public class GetNetworkUseCaseIterative0 {
     private final IConceptRepository conceptRepository;
 
-    public GetNetworkUseCaseIterativeV0(IConceptRepository conceptRepository) {
+    public GetNetworkUseCaseIterative0(IConceptRepository conceptRepository) {
         this.conceptRepository = conceptRepository;
     }
 

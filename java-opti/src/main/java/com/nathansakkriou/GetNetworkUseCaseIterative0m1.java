@@ -13,10 +13,10 @@ import java.util.regex.Pattern;
 /**
  * Version naive + Parallele sur les streams de recherche
  */
-public class GetNetworkUseCaseIterative01 {
+public class GetNetworkUseCaseIterative0m1 {
     private final IConceptRepository conceptRepository;
 
-    public GetNetworkUseCaseIterative01(IConceptRepository conceptRepository) {
+    public GetNetworkUseCaseIterative0m1(IConceptRepository conceptRepository) {
         this.conceptRepository = conceptRepository;
     }
 

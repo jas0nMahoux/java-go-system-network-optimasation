@@ -1,37 +1,34 @@
 package com.nathansakkriou;
 
 import com.nathansakkriou.benchmark.NetworkBenchmark;
-import com.nathansakkriou.entities.concept.Concept;
-import com.nathansakkriou.repository.ConceptRepository;
-import com.nathansakkriou.repository.IConceptRepository;
+import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-import java.util.List;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 
-/**
- * Hello world!
- *
- */
-public class App 
+public class App
 {
     public static void main( String[] args ) throws RunnerException {
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new java.util.Date());
+        System.out.println(timeStamp);
+
         Options opt = new OptionsBuilder()
                 .include(NetworkBenchmark.class.getSimpleName())
                 .forks(1)
+                .resultFormat(ResultFormatType.JSON)
+                .output("reports/benchmark-" + timeStamp + ".json")
                 .build();
 
+
+
         new Runner(opt).run();
-
-        //        IConceptRepository conceptRepository = new ConceptRepository();
-//        List<Concept> allConcepts = conceptRepository.findAll();
-//
-//        GetNetworkUseCaseIterative1 usecase = new GetNetworkUseCaseIterative1(conceptRepository);
-//
-//        var network = usecase.execute();
-//        System.out.println(network);
     }
-
 }
