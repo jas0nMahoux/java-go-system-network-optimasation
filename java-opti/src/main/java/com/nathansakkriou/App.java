@@ -16,4 +16,5 @@ public class App
         var network = usecase.execute();
         System.out.println(network);
     }
+
 }
