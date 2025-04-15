@@ -1,6 +1,7 @@
 package com.nathansakkriou;
 
 import com.nathansakkriou.benchmark.NetworkBenchmark;
+import com.nathansakkriou.benchmark.TestNetworkBenchmark;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -24,7 +25,7 @@ public class App
                 .include(NetworkBenchmark.class.getSimpleName())
                 .forks(1)
                 .resultFormat(ResultFormatType.JSON)
-                .output("reports/benchmark-" + timeStamp + ".json")
+                .result("reports/benchmark-" + timeStamp + ".json")
                 .build();
 
 

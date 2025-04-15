@@ -7,7 +7,8 @@ import org.openjdk.jmh.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
-@BenchmarkMode(Mode.Throughput)
+
+@BenchmarkMode({Mode.AverageTime, Mode.Throughput})
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Thread)
 public class NetworkBenchmark {
@@ -30,27 +31,27 @@ public class NetworkBenchmark {
 
 
     @Benchmark
-    public void benchmarkIterative0() {
+    public void V0_Naive() {
         iterative0.execute();
     }
 
     @Benchmark
-    public void benchmarkIterative0m1() {
+    public void V0_Naive_parallel() {
         iterative0m1.execute();
     }
 
     @Benchmark
-    public void benchmarkIterative1() {
+    public void V1_Map() {
         iterative1.execute();
     }
 
     @Benchmark
-    public void benchmarkIterative1m1() {
+    public void V1_Map_parallel() {
         iterative1m1.execute();
     }
 
     @Benchmark
-    public void benchmarkIterative2() {
+    public void V2_Thread() {
         iterative2.execute();
     }
 }
