@@ -15,17 +15,6 @@ public class ConceptRepository implements IConceptRepository{
     public ConceptRepository() {
     }
 
-    public List<Concept> loadConcepts() {
-        List<Concept> concepts = new ArrayList<>();
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.readValue(new File("./data/30.json"), new TypeReference<List<Concept>>() {});
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
-    }
-
     public Concept create(String title, String description) {
         return new Concept(
                 UUID.randomUUID(),
@@ -36,6 +25,13 @@ public class ConceptRepository implements IConceptRepository{
 
     @Override
     public List<Concept> findAll() {
-        return List.of();
+        List<Concept> concepts = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.readValue(new File("./data/30.json"), new TypeReference<List<Concept>>() {});
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 }
