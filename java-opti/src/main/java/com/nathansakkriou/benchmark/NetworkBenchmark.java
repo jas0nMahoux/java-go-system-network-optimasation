@@ -32,26 +32,26 @@ public class NetworkBenchmark {
 
     @Benchmark
     public void V0_Naive() {
-        iterative0.execute();
+        iterative0.execute(false);
     }
 
     @Benchmark
     public void V0_Naive_parallel() {
-        iterative0m1.execute();
+        iterative0m1.execute(false);
     }
 
     @Benchmark
     public void V1_Map() {
-        iterative1.execute();
+        iterative1.execute(false);
     }
 
     @Benchmark
     public void V1_Map_parallel() {
-        iterative1m1.execute();
+        iterative1m1.execute(false);
     }
 
     @Benchmark
     public void V2_Thread() {
-        iterative2.execute();
+        iterative2.execute(false);
     }
 }

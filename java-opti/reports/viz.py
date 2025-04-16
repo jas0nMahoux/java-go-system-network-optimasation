@@ -6,7 +6,7 @@ import questionary
 import sys
 
 # Liste les fichiers JSON dans le dossier courant
-json_files = [f for f in os.listdir('.') if f.endswith('.json')][::-1]
+json_files = [f for f in os.listdir('.') if f.endswith('.json')].sort()
 
 # Si aucun fichier json, quitter
 if not json_files:

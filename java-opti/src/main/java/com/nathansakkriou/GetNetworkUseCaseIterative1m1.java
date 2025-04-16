@@ -24,9 +24,9 @@ public class GetNetworkUseCaseIterative1m1 {
         this.conceptRepository = conceptRepository;
     }
 
-    public NetworkConcepts execute() {
+    public NetworkConcepts execute(boolean showDeleted) {
         List<Edge> edges = new ArrayList<>();
-        List<Concept> allConcept = conceptRepository.findAll();
+        List<Concept> allConcept = showDeleted ? conceptRepository.findAll() : conceptRepository.findAllExcludeDeleted();
         Map<String, UUID> mapTitleId = conceptsToMapTitleUuid(allConcept);
 
         for (Concept concept : allConcept)
@@ -36,12 +36,12 @@ public class GetNetworkUseCaseIterative1m1 {
     }
 
     private List<Edge> findEdges(Concept concept, Map<String, UUID> mapTitleId) {
-        List<String> refs = extractTextBetweenDelimiters(concept.description());
+        List<String> refs = extractTextBetweenDelimiters(concept.getDescription());
         List<Edge> edges = new ArrayList<>();
         refs.forEach(ref -> {
             if (mapTitleId.containsKey(ref)) {
                 UUID conceptId = mapTitleId.get(ref);
-                edges.add(new Edge(concept.id(), conceptId));
+                edges.add(new Edge(concept.getId(), conceptId));
             }
         });
         return edges;
@@ -65,7 +65,7 @@ public class GetNetworkUseCaseIterative1m1 {
         return concepts.stream()
                 .parallel()
                 .collect(
-                Collectors.toMap(Concept::title, Concept::id)
+                Collectors.toMap(Concept::getTitle, Concept::getId)
         );
     }
 }

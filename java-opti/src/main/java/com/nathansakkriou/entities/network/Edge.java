@@ -9,6 +9,6 @@ public record Edge (
     UUID target) {
 
     public static Edge fromTargetAndSource(Concept target, Concept source) {
-        return new Edge(source.id(), target.id());
+        return new Edge(source.getId(), target.getId());
     }
 }

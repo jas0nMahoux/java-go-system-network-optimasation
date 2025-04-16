@@ -21,6 +21,6 @@ public class TestNetworkBenchmark {
 
     @Benchmark
     public void benchmarkIterative2() {
-        iterative2.execute();
+        iterative2.execute(false);
     }
 }

@@ -23,9 +23,9 @@ public class GetNetworkUseCaseIterative0 {
         this.conceptRepository = conceptRepository;
     }
 
-    public NetworkConcepts execute() {
+    public NetworkConcepts execute(boolean showDeleted) {
         List<Edge> edges = new ArrayList<>();
-        List<Concept> allConcept = conceptRepository.findAll();
+        List<Concept> allConcept = showDeleted ? conceptRepository.findAll() : conceptRepository.findAllExcludeDeleted();
 
         for (Concept concept : allConcept)
             edges.addAll(findEdges(concept, allConcept));
@@ -34,12 +34,12 @@ public class GetNetworkUseCaseIterative0 {
     }
 
     private List<Edge> findEdges(Concept concept, List<Concept> allConcept) {
-        List<String> refs = extractTextBetweenDelimiters(concept.description());
+        List<String> refs = extractTextBetweenDelimiters(concept.getDescription());
         List<Edge> edges = new ArrayList<>();
         refs.forEach(ref -> {
-            var filterList = allConcept.stream().filter(concept1 -> concept1.id().toString().equals(ref)).toList();
+            var filterList = allConcept.stream().filter(concept1 -> concept1.getId().toString().equals(ref)).toList();
             if(!filterList.isEmpty()) {
-                edges.add(new Edge(concept.id(), filterList.get(0).id()));
+                edges.add(new Edge(concept.getId(), filterList.get(0).getId()));
 
             }
         });
