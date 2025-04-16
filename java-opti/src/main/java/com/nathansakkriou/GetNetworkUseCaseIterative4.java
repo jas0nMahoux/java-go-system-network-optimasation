@@ -5,10 +5,7 @@ import com.nathansakkriou.entities.network.Edge;
 import com.nathansakkriou.entities.network.NetworkConcepts;
 import com.nathansakkriou.repository.IConceptRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
@@ -37,9 +34,9 @@ public class GetNetworkUseCaseIterative4 {
         return new NetworkConcepts(allConcept, edges);
     }
 
-    private List<Edge> findEdges(Concept concept, Map<String, UUID> mapTitleId) {
-        List<String> refs = extractTextBetweenDelimiters(concept.getDescription());
-        List<Edge> edges = new ArrayList<>();
+    private Set<Edge> findEdges(Concept concept, Map<String, UUID> mapTitleId) {
+        Set<String> refs = extractTextBetweenDelimiters(concept.getDescription());
+        Set<Edge> edges = new HashSet<>();
         refs.forEach(ref -> {
             if (mapTitleId.containsKey(ref)) {
                 UUID conceptId = mapTitleId.get(ref);
@@ -49,8 +46,8 @@ public class GetNetworkUseCaseIterative4 {
         return edges;
     }
 
-    private static List<String> extractTextBetweenDelimiters(String input) {
-        List<String> results = new ArrayList<>();
+    private static Set<String> extractTextBetweenDelimiters(String input) {
+        Set<String> results = new HashSet<>();
         int index = 0;
         while ((index = input.indexOf("[[", index)) != -1) {
             int end = input.indexOf("]]", index);
