@@ -20,7 +20,7 @@ public class GetNetworkUseCaseIterative1Test {
         GetNetworkUseCaseIterative1 usecase = new GetNetworkUseCaseIterative1(conceptRepository);
 
         // WHEN
-        var network = usecase.execute();
+        var network = usecase.execute(false);
 
         // THEN
         Assertions.assertNotNull(network);
