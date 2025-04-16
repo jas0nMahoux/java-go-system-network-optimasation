@@ -18,6 +18,8 @@ public class NetworkBenchmark {
     private GetNetworkUseCaseIterative1 iterative1;
     private GetNetworkUseCaseIterative1m1 iterative1m1;
     private GetNetworkUseCaseIterative2 iterative2;
+    private GetNetworkUseCaseIterative4 iterative4;
+    private GetNetworkUseCaseIterative3 iterative3;
 
     @Setup(Level.Invocation)
     public void setUp() {
@@ -27,6 +29,8 @@ public class NetworkBenchmark {
         iterative1 = new GetNetworkUseCaseIterative1(conceptRepository);
         iterative1m1 = new GetNetworkUseCaseIterative1m1(conceptRepository);
         iterative2 = new GetNetworkUseCaseIterative2(conceptRepository);
+        iterative4 = new GetNetworkUseCaseIterative4(conceptRepository);
+        iterative3 = new GetNetworkUseCaseIterative3(conceptRepository);
     }
 
 
@@ -53,5 +57,15 @@ public class NetworkBenchmark {
     @Benchmark
     public void V2_Thread() {
         iterative2.execute();
+    }
+
+    @Benchmark
+    public void V3_pattern_global() {
+        iterative3.execute();
+    }
+
+    @Benchmark
+    public void V4_search_delimiter() {
+        iterative4.execute();
     }
 }
