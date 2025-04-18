@@ -8,7 +8,7 @@ import org.openjdk.jmh.annotations.*;
 import java.util.concurrent.TimeUnit;
 
 
-@BenchmarkMode({Mode.AverageTime, Mode.Throughput})
+@BenchmarkMode({Mode.AverageTime, Mode.Throughput, Mode.SampleTime})
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Thread)
 public class NetworkBenchmark {

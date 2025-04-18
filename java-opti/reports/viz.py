@@ -45,8 +45,8 @@ for entry in data:
         avg_time.append((name, score, unit))
 
 # Trier les données
-throughput.sort(key=lambda x: x[1], reverse=True)
-avg_time.sort(key=lambda x: x[1])
+# throughput.sort(key=lambda x: x[1], reverse=True)
+# avg_time.sort(key=lambda x: x[1])
 
 tp_names, tp_values, tp_units = zip(*throughput) if throughput else ([], [], [])
 avgt_names, avgt_values, avgt_units = zip(*avg_time) if avg_time else ([], [], [])

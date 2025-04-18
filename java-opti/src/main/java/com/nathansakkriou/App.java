@@ -28,8 +28,6 @@ public class App
                 .result("reports/benchmark-" + timeStamp + ".json")
                 .build();
 
-
-
         new Runner(opt).run();
     }
 }
